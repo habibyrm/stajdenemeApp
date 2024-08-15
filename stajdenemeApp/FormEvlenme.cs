@@ -22,7 +22,65 @@ namespace stajdenemeApp
 
         KisiBilgileri kisi1;
         KisiBilgileri kisi2;
+        DateTime zaman;
 
+        private void buttonValidate_Click(object sender, EventArgs e)
+        {
+            int day, month, year, hour, minute;
+
+            // Gün değerinin geçerli bir sayı olup olmadığını kontrol et.
+            if (!int.TryParse(txtgun.Text, out day) || day < 1 || day > 31)
+            {
+                MessageBoxHelper.ShowMessageBoxWarning("Geçerli bir gün değeri girin (1-31).");
+                return;
+            }
+
+            // Ay değerinin geçerli bir sayı olup olmadığını kontrol et.
+            if (!int.TryParse(txtay.Text, out month) || month < 1 || month > 12)
+            {
+                MessageBoxHelper.ShowMessageBoxWarning("Geçerli bir ay değeri girin (1-12).");
+                return;
+            }
+
+            // Yıl değerinin geçerli bir sayı olup olmadığını kontrol et.
+            if (!int.TryParse(txtyil.Text, out year) || year < 1)
+            {
+                MessageBoxHelper.ShowMessageBoxWarning("Geçerli bir yıl değeri girin.");
+                return;
+            }
+
+            // Saat değerinin geçerli bir sayı olup olmadığını kontrol et.
+            if (!int.TryParse(txtsaat.Text, out hour) || hour < 0 || hour > 23)
+            {
+                MessageBoxHelper.ShowMessageBoxWarning("Geçerli bir saat değeri girin (0-23).");
+                return;
+            }
+
+            // Dakika değerinin geçerli bir sayı olup olmadığını kontrol et.
+            if (!int.TryParse(txtdakika.Text, out minute) || minute < 0 || minute > 59)
+            {
+                MessageBox.Show("Geçerli bir dakika değeri girin (0-59).");
+                return;
+            }
+
+            // Geçerli bir tarih ve saat olup olmadığını kontrol et.
+            try
+            {
+                DateTime dateTime = new DateTime(year, month, day, hour, minute, 0);
+                zaman = dateTime;
+
+                // Gelecek bir tarih olup olmadığını kontrol et.
+                if (dateTime > DateTime.Now)
+                {
+                    MessageBoxHelper.ShowMessageBoxWarning("Gelecek tarihler kabul edilemez. Lütfen bugünün tarihi veya daha önceki bir tarihi girin.");
+                    return;
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBoxHelper.ShowMessageBoxWarning("Girilen değerler geçerli bir tarih ve saat oluşturmuyor.");
+            }
+        }
         public bool EkranKontrol()
         {
             if (!string.IsNullOrEmpty(txtTC1.Text) || !string.IsNullOrEmpty(txtTC2.Text))
@@ -35,7 +93,7 @@ namespace stajdenemeApp
                 MessageBoxHelper.ShowMessageBoxError("Aynı cinsiyetteki kişiler evlnemez.");
                 return false;
             }
-            else if (18 > FormHelper.YasHesaplama(kisi1.Tc) || 18 > FormHelper.YasHesaplama(kisi2.Tc))
+            else if (18 > FormHelper.YasHesaplama(FormHelper.Dogumtarihi(kisi1.Tc)) || 18 > FormHelper.YasHesaplama(FormHelper.Dogumtarihi(kisi2.Tc)))
             {
                 MessageBoxHelper.ShowMessageBoxError("18 yaşından küçük kişiler evlenemez.");
                 return false;
@@ -58,7 +116,7 @@ namespace stajdenemeApp
         private void btnkisi1_Click(object sender, EventArgs e)
         {
             string tc = txtTC1.Text;
-            using (var context = new StajdenemeContext())
+            using (var context = new DbContextSingelton().Instance)
             {
                 try
                 {
@@ -84,11 +142,10 @@ namespace stajdenemeApp
                 }
             }
         }
-
         private void btnkisi2_Click(object sender, EventArgs e)
         {
             string tc = txtTC2.Text;
-            using (var context = new StajdenemeContext())
+            using (var context = new DbContextSingelton().Instance)
             {
                 try
                 {
@@ -96,7 +153,7 @@ namespace stajdenemeApp
 
                     if (kisi2 == null)
                     {
-                        MessageBox.Show("Kişi Bulunamadı", "hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBoxHelper.ShowMessageBoxError("Kişi Bulunamadı");
                         return;
                     }
                     txtad2.Text = kisi2.Ad;
@@ -117,7 +174,11 @@ namespace stajdenemeApp
 
         private void btnevlenme_Click(object sender, EventArgs e)
         {
+            buttonValidate_Click(sender, e);
             EkranKontrol();
+            OlayKayit kayit = new OlayKayit();
+            kayit.OlayKaydi(txtTC1.Text, txtTC2.Text, zaman, 3);
+            kayit.OlayKaydi(txtTC2.Text, txtTC1.Text, zaman, 3);
         }
     }
 }

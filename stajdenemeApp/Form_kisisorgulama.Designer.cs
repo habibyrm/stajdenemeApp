@@ -168,7 +168,7 @@
             btntemizle.TabIndex = 12;
             btntemizle.Text = "Yeni Sorgu";
             btntemizle.UseVisualStyleBackColor = true;
-            btntemizle.Click += button1_Click;
+            //btntemizle.Click += btn;
             // 
             // btnonceki
             // 
@@ -406,7 +406,6 @@
             Controls.Add(dataGridView1);
             Name = "Form_kisisorgulama";
             Text = "Kişi Sorgulama";
-            Load += Form_kisisorgulama_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             grupailebilgileri.ResumeLayout(false);
             grupailebilgileri.PerformLayout();

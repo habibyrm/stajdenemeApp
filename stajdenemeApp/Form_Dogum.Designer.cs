@@ -185,7 +185,7 @@
             // 
             // txtsaat
             // 
-            txtsaat.Location = new Point(9, 189);
+            txtsaat.Location = new Point(9, 187);
             txtsaat.MaxLength = 2;
             txtsaat.Name = "txtsaat";
             txtsaat.Size = new Size(22, 23);
@@ -195,7 +195,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(9, 171);
+            label11.Location = new Point(9, 169);
             label11.Name = "label11";
             label11.Size = new Size(78, 15);
             label11.TabIndex = 23;
@@ -228,7 +228,7 @@
             // 
             // txtgun
             // 
-            txtgun.Location = new Point(6, 143);
+            txtgun.Location = new Point(6, 141);
             txtgun.MaxLength = 2;
             txtgun.Name = "txtgun";
             txtgun.Size = new Size(25, 23);
@@ -238,7 +238,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(7, 126);
+            label14.Location = new Point(7, 124);
             label14.Name = "label14";
             label14.Size = new Size(81, 15);
             label14.TabIndex = 17;
@@ -246,13 +246,14 @@
             // 
             // btndogur
             // 
-            btndogur.Location = new Point(604, 307);
+            btndogur.Location = new Point(604, 315);
             btndogur.Name = "btndogur";
             btndogur.Size = new Size(135, 31);
             btndogur.TabIndex = 29;
             btndogur.Text = "Doğum Yap";
             btndogur.UseVisualStyleBackColor = true;
             btndogur.Click += btndogur_Click;
+            btndogur.MouseClick += buttonValidate_Click;
             // 
             // txtcocuktc
             // 
@@ -295,7 +296,7 @@
             grup_cocuk.Controls.Add(comboBoxcinsiyet);
             grup_cocuk.Location = new Point(450, 60);
             grup_cocuk.Name = "grup_cocuk";
-            grup_cocuk.Size = new Size(289, 232);
+            grup_cocuk.Size = new Size(289, 231);
             grup_cocuk.TabIndex = 32;
             grup_cocuk.TabStop = false;
             grup_cocuk.Text = "Çocuk Bilgileri";
@@ -303,7 +304,7 @@
             // label24
             // 
             label24.AutoSize = true;
-            label24.Location = new Point(37, 192);
+            label24.Location = new Point(37, 190);
             label24.Name = "label24";
             label24.Size = new Size(12, 15);
             label24.TabIndex = 49;
@@ -312,7 +313,7 @@
             // label23
             // 
             label23.AutoSize = true;
-            label23.Location = new Point(76, 147);
+            label23.Location = new Point(76, 145);
             label23.Name = "label23";
             label23.Size = new Size(12, 15);
             label23.TabIndex = 49;
@@ -321,7 +322,7 @@
             // label22
             // 
             label22.AutoSize = true;
-            label22.Location = new Point(36, 147);
+            label22.Location = new Point(36, 145);
             label22.Name = "label22";
             label22.Size = new Size(12, 15);
             label22.TabIndex = 48;
@@ -329,7 +330,7 @@
             // 
             // txtyil
             // 
-            txtyil.Location = new Point(94, 143);
+            txtyil.Location = new Point(94, 141);
             txtyil.MaxLength = 4;
             txtyil.Name = "txtyil";
             txtyil.Size = new Size(41, 23);
@@ -338,7 +339,7 @@
             // 
             // txtay
             // 
-            txtay.Location = new Point(54, 144);
+            txtay.Location = new Point(54, 142);
             txtay.MaxLength = 2;
             txtay.Name = "txtay";
             txtay.Size = new Size(22, 23);
@@ -347,7 +348,7 @@
             // 
             // txtdakika
             // 
-            txtdakika.Location = new Point(54, 189);
+            txtdakika.Location = new Point(54, 187);
             txtdakika.MaxLength = 2;
             txtdakika.Name = "txtdakika";
             txtdakika.Size = new Size(22, 23);

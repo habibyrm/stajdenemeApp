@@ -67,6 +67,17 @@
             txtasn2 = new TextBox();
             txtdurum2 = new TextBox();
             btnevlenme = new Button();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            label24 = new Label();
+            label23 = new Label();
+            label22 = new Label();
+            txtyil = new TextBox();
+            txtay = new TextBox();
+            txtdakika = new TextBox();
+            txtsaat = new TextBox();
+            label17 = new Label();
+            label18 = new Label();
+            txtgun = new TextBox();
             grupkisi1.SuspendLayout();
             grupkisi2.SuspendLayout();
             SuspendLayout();
@@ -271,7 +282,7 @@
             grupkisi2.Controls.Add(txtbsn2);
             grupkisi2.Controls.Add(txtasn2);
             grupkisi2.Controls.Add(txtdurum2);
-            grupkisi2.Location = new Point(332, 22);
+            grupkisi2.Location = new Point(282, 22);
             grupkisi2.Name = "grupkisi2";
             grupkisi2.Size = new Size(254, 281);
             grupkisi2.TabIndex = 53;
@@ -433,19 +444,114 @@
             // 
             // btnevlenme
             // 
-            btnevlenme.Location = new Point(511, 348);
+            btnevlenme.Location = new Point(462, 386);
             btnevlenme.Name = "btnevlenme";
-            btnevlenme.Size = new Size(75, 23);
+            btnevlenme.Size = new Size(74, 36);
             btnevlenme.TabIndex = 54;
             btnevlenme.Text = "Evlendir";
             btnevlenme.UseVisualStyleBackColor = true;
             btnevlenme.Click += btnevlenme_Click;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new Point(237, 397);
+            label24.Name = "label24";
+            label24.Size = new Size(12, 15);
+            label24.TabIndex = 63;
+            label24.Text = "/";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(279, 344);
+            label23.Name = "label23";
+            label23.Size = new Size(12, 15);
+            label23.TabIndex = 64;
+            label23.Text = "/";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new Point(239, 344);
+            label22.Name = "label22";
+            label22.Size = new Size(12, 15);
+            label22.TabIndex = 62;
+            label22.Text = "/";
+            // 
+            // txtyil
+            // 
+            txtyil.Location = new Point(297, 340);
+            txtyil.MaxLength = 4;
+            txtyil.Name = "txtyil";
+            txtyil.Size = new Size(41, 23);
+            txtyil.TabIndex = 61;
+            // 
+            // txtay
+            // 
+            txtay.Location = new Point(257, 341);
+            txtay.MaxLength = 2;
+            txtay.Name = "txtay";
+            txtay.Size = new Size(22, 23);
+            txtay.TabIndex = 60;
+            // 
+            // txtdakika
+            // 
+            txtdakika.Location = new Point(254, 394);
+            txtdakika.MaxLength = 2;
+            txtdakika.Name = "txtdakika";
+            txtdakika.Size = new Size(22, 23);
+            txtdakika.TabIndex = 59;
+            // 
+            // txtsaat
+            // 
+            txtsaat.Location = new Point(209, 394);
+            txtsaat.MaxLength = 2;
+            txtsaat.Name = "txtsaat";
+            txtsaat.Size = new Size(22, 23);
+            txtsaat.TabIndex = 58;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(209, 376);
+            label17.Name = "label17";
+            label17.Size = new Size(83, 15);
+            label17.TabIndex = 57;
+            label17.Text = "Evlenme Saati:";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(210, 323);
+            label18.Name = "label18";
+            label18.Size = new Size(86, 15);
+            label18.TabIndex = 55;
+            label18.Text = "Evlenme Tarihi:";
+            // 
+            // txtgun
+            // 
+            txtgun.Location = new Point(209, 340);
+            txtgun.MaxLength = 2;
+            txtgun.Name = "txtgun";
+            txtgun.Size = new Size(25, 23);
+            txtgun.TabIndex = 56;
             // 
             // FormEvlenme
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(604, 450);
+            Controls.Add(label24);
+            Controls.Add(label23);
+            Controls.Add(label22);
+            Controls.Add(txtyil);
+            Controls.Add(txtay);
+            Controls.Add(txtdakika);
+            Controls.Add(txtsaat);
+            Controls.Add(label17);
+            Controls.Add(label18);
+            Controls.Add(txtgun);
             Controls.Add(btnevlenme);
             Controls.Add(grupkisi2);
             Controls.Add(grupkisi1);
@@ -456,6 +562,7 @@
             grupkisi2.ResumeLayout(false);
             grupkisi2.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -499,5 +606,16 @@
         private TextBox txtasn2;
         private TextBox txtdurum2;
         private Button btnevlenme;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private Label label24;
+        private Label label23;
+        private Label label22;
+        private TextBox txtyil;
+        private TextBox txtay;
+        private TextBox txtdakika;
+        private TextBox txtsaat;
+        private Label label17;
+        private Label label18;
+        private TextBox txtgun;
     }
 }

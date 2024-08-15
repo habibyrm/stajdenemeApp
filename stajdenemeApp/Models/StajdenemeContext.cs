@@ -37,7 +37,7 @@ public partial class StajdenemeContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost;Database=stajdeneme;Username=postgres;Password=abc123");
+        => optionsBuilder.UseNpgsql("Host=localHost;Port=5432;Database=stajdeneme;Username=postgres;Password=abc123");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -49,7 +49,7 @@ public partial class StajdenemeContext : DbContext
 
             entity.ToTable("aile");
 
-            entity.HasIndex(e => e.AileSiraNo, "aileUnique").IsUnique();
+            entity.HasIndex(e => new { e.AileSiraNo, e.BireySiraNo }, "ailebireyUnique").IsUnique();
 
             entity.Property(e => e.IdAile).HasColumnName("id_aile");
             entity.Property(e => e.AileSiraNo).HasColumnName("aile_sira_no");
@@ -67,7 +67,7 @@ public partial class StajdenemeContext : DbContext
                 .HasMaxLength(11)
                 .HasColumnName("es_tc");
 
-            entity.HasOne(d => d.Cilt).WithMany(p => p.Aile)
+            entity.HasOne(d => d.CiltKoduNavigation).WithMany(p => p.Ailes)
                 .HasForeignKey(d => d.CiltKodu)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("aile_sinifi_cilt_fk");
@@ -79,16 +79,14 @@ public partial class StajdenemeContext : DbContext
 
             entity.ToTable("cilt");
 
-            entity.HasIndex(e => e.Kodu, "ciltUnique").IsUnique();
-
             entity.Property(e => e.IdCilt).HasColumnName("id_cilt");
             entity.Property(e => e.Aciklamasi)
                 .HasMaxLength(50)
                 .HasColumnName("aciklamasi");
-            entity.Property(e => e.Kodu).HasColumnName("kodu");
             entity.Property(e => e.SehirKodu).HasColumnName("sehir_kodu");
 
-            entity.HasOne(d => d.Sehir).WithMany(p => p.Cilt)
+            entity.HasOne(d => d.SehirKoduNavigation).WithMany(p => p.Cilts)
+                .HasPrincipalKey(p => p.Kodu)
                 .HasForeignKey(d => d.SehirKodu)
                 .HasConstraintName("cilt_sinifi_sehir_fk");
         });
@@ -142,24 +140,29 @@ public partial class StajdenemeContext : DbContext
                 .IsFixedLength()
                 .HasColumnName("tc");
 
-            entity.HasOne(d => d.Aile).WithMany(p => p.Kisi)
+            entity.HasOne(d => d.Aile).WithMany(p => p.Kisis)
                 .HasForeignKey(d => d.AileKodu)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("kisi_sinifi_aile_fk");
 
-            entity.HasOne(d => d.Cinsiyet).WithMany(p => p.Kisi)
+            entity.HasOne(d => d.Cinsiyet).WithMany(p => p.Kisis)
                 .HasForeignKey(d => d.CinsiyetKodu)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("kisi_sinifi_cinsiyet_fk");
 
-            entity.HasOne(d => d.Sehir).WithMany(p => p.Kisi)
+            entity.HasOne(d => d.DogumYeri).WithMany(p => p.Kisis)
                 .HasForeignKey(d => d.DogumYeriKodu)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("kisi_sinifi_dogumyeri_fk");
 
-            entity.HasOne(d => d.Durum).WithMany(p => p.Kisi)
+            entity.HasOne(d => d.Durum).WithMany(p => p.Kisis)
                 .HasForeignKey(d => d.DurumKodu)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("kisi_sinifi_durum_fk");
 
-            entity.HasOne(d => d.Medenihal).WithMany(p => p.Kisi)
+            entity.HasOne(d => d.MedeniHal).WithMany(p => p.Kisis)
                 .HasForeignKey(d => d.MedeniHalKodu)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("kisi_sinifi_medenihal_fk");
         });
 
@@ -218,34 +221,39 @@ public partial class StajdenemeContext : DbContext
             entity.ToTable("olay_gecmisi");
 
             entity.Property(e => e.IdOlayGecmisi).HasColumnName("id_olay_gecmisi");
+            entity.Property(e => e.EsTc)
+                .HasMaxLength(11)
+                .IsFixedLength()
+                .HasColumnName("es_tc");
             entity.Property(e => e.KisiTc)
                 .HasMaxLength(11)
                 .IsFixedLength()
                 .HasColumnName("kisi_tc");
             entity.Property(e => e.KullaniciId).HasColumnName("kullanici_id");
             entity.Property(e => e.OlayKodu).HasColumnName("olay_kodu");
-            entity.Property(e => e.Saat)
-                .HasDefaultValueSql("CURRENT_TIME")
-                .HasColumnName("saat");
-            entity.Property(e => e.Tarihi)
-                .HasDefaultValueSql("CURRENT_DATE")
-                .HasColumnName("tarihi");
             entity.Property(e => e.Zaman)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("zaman");
 
+            entity.HasOne(d => d.EsTcNavigation).WithMany(p => p.OlayGecmisiEsTcNavigations)
+                .HasPrincipalKey(p => p.Tc)
+                .HasForeignKey(d => d.EsTc)
+                .HasConstraintName("olaygecmisi_sinifi_estc_fk");
+
             entity.HasOne(d => d.Kisi).WithMany(p => p.OlayGecmisi)
                 .HasPrincipalKey(p => p.Tc)
                 .HasForeignKey(d => d.KisiTc)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("olaygecmisi_sinifi_kisitc_fk");
 
-            entity.HasOne(d => d.Kullanici).WithMany(p => p.OlayGecmisi)
+            entity.HasOne(d => d.Kullanici).WithMany(p => p.OlayGecmisis)
                 .HasForeignKey(d => d.KullaniciId)
                 .HasConstraintName("olaygecmisi_sinifi_kullanici_id_fk");
 
-            entity.HasOne(d => d.Olay).WithMany(p => p.OlayGecmisi)
+            entity.HasOne(d => d.Olay).WithMany(p => p.OlayGecmisis)
                 .HasForeignKey(d => d.OlayKodu)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("olaygecmisi_sinifi_olaykodu_fk");
         });
 
@@ -261,7 +269,9 @@ public partial class StajdenemeContext : DbContext
             entity.Property(e => e.Aciklamasi)
                 .HasMaxLength(50)
                 .HasColumnName("aciklamasi");
-            entity.Property(e => e.Kodu).HasColumnName("kodu");
+            entity.Property(e => e.Kodu)
+                .IsRequired()
+                .HasColumnName("kodu");
         });
 
         OnModelCreatingPartial(modelBuilder);

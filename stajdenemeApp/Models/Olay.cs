@@ -11,5 +11,5 @@ public partial class Olay
 
     public string? Aciklamasi { get; set; }
 
-    public virtual ICollection<OlayGecmisi> OlayGecmisi { get; set; } = new List<OlayGecmisi>();
+    public virtual ICollection<OlayGecmisi> OlayGecmisis { get; set; } = new List<OlayGecmisi>();
 }

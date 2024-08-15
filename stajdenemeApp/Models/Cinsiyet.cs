@@ -9,5 +9,5 @@ public partial class Cinsiyet
 
     public string? Aciklamasi { get; set; }
 
-    public virtual ICollection<Kisi> Kisi { get; set; } = new List<Kisi>();
+    public virtual ICollection<Kisi> Kisis { get; set; } = new List<Kisi>();
 }

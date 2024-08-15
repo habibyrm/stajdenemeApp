@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 using stajdenemeApp.ComplexModels;
 using stajdenemeApp.Models;
-using System.Diagnostics;
 
 namespace stajdenemeApp
 {
@@ -26,11 +25,16 @@ namespace stajdenemeApp
 
         public bool Login(string username, string password)
         {
-            using (var context = new StajdenemeContext())
+            using (var context = new DbContextSingelton().Instance)
             {
                 var kullanici = context.Kullanici
                     .FromSqlRaw("SELECT * FROM kullanici WHERE ad = {0} AND parola = crypt({1}, parola)", username, password)
                     .FirstOrDefault();
+                if (kullanici != null)
+                {
+                    CurrentUser.KullaniciId = kullanici.IdKullanici;
+                    CurrentUser.KullaniciAdi = kullanici.Ad;
+                }
 
                 return kullanici != null;
             }

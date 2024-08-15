@@ -19,7 +19,7 @@ public partial class Aile
 
     public int CiltKodu { get; set; }
 
-    public virtual Cilt Cilt { get; set; } = null!;
+    public virtual Cilt CiltKoduNavigation { get; set; } = null!;
 
-    public virtual ICollection<Kisi> Kisi { get; set; } = new List<Kisi>();
+    public virtual ICollection<Kisi> Kisis { get; set; } = new List<Kisi>();
 }

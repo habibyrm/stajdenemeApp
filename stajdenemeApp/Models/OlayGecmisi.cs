@@ -7,21 +7,21 @@ public partial class OlayGecmisi
 {
     public int IdOlayGecmisi { get; set; }
 
-    public int? OlayKodu { get; set; }
+    public int OlayKodu { get; set; }
 
-    public string? KisiTc { get; set; }
+    public string KisiTc { get; set; } = null!;
 
-    public DateOnly? Tarihi { get; set; }
-
-    public TimeOnly? Saat { get; set; }
+    public string? EsTc { get; set; }
 
     public DateTime? Zaman { get; set; }
 
     public int? KullaniciId { get; set; }
 
-    public virtual Kisi Kisi { get; set; }
+    public virtual Kisi? EsTcNavigation { get; set; }
 
-    public virtual Kullanici Kullanici { get; set; }
+    public virtual Kisi Kisi { get; set; } = null!;
 
-    public virtual Olay Olay { get; set; }
+    public virtual Kullanici? Kullanici { get; set; }
+
+    public virtual Olay Olay { get; set; } = null!;
 }

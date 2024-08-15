@@ -43,11 +43,21 @@
             txtsoyad = new TextBox();
             txtmedenihalkodu = new TextBox();
             txtad = new TextBox();
-            button2 = new Button();
+            btnSorgula = new Button();
             label1 = new Label();
             txtTC = new TextBox();
             btnolum = new Button();
             grupkisiolum = new GroupBox();
+            label24 = new Label();
+            label23 = new Label();
+            label22 = new Label();
+            txtyil = new TextBox();
+            txtay = new TextBox();
+            txtdakika = new TextBox();
+            txtsaat = new TextBox();
+            label5 = new Label();
+            label14 = new Label();
+            txtgun = new TextBox();
             grupkisiolum.SuspendLayout();
             SuspendLayout();
             // 
@@ -178,15 +188,15 @@
             txtad.Size = new Size(100, 23);
             txtad.TabIndex = 36;
             // 
-            // button2
+            // btnSorgula
             // 
-            button2.Location = new Point(179, 22);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 35;
-            button2.Text = "Sorgula";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            btnSorgula.Location = new Point(179, 22);
+            btnSorgula.Name = "btnSorgula";
+            btnSorgula.Size = new Size(75, 23);
+            btnSorgula.TabIndex = 35;
+            btnSorgula.Text = "Sorgula";
+            btnSorgula.UseVisualStyleBackColor = true;
+            btnSorgula.Click += btnSorgula_Click;
             // 
             // label1
             // 
@@ -206,7 +216,7 @@
             // 
             // btnolum
             // 
-            btnolum.Location = new Point(191, 299);
+            btnolum.Location = new Point(191, 379);
             btnolum.Name = "btnolum";
             btnolum.Size = new Size(75, 23);
             btnolum.TabIndex = 51;
@@ -218,7 +228,7 @@
             // 
             grupkisiolum.Controls.Add(txtTC);
             grupkisiolum.Controls.Add(label1);
-            grupkisiolum.Controls.Add(button2);
+            grupkisiolum.Controls.Add(btnSorgula);
             grupkisiolum.Controls.Add(txtdurumkodu);
             grupkisiolum.Controls.Add(txtad);
             grupkisiolum.Controls.Add(txtmedenihal);
@@ -241,11 +251,107 @@
             grupkisiolum.TabStop = false;
             grupkisiolum.Text = "Kişi Bilgileri";
             // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new Point(58, 383);
+            label24.Name = "label24";
+            label24.Size = new Size(12, 15);
+            label24.TabIndex = 61;
+            label24.Text = "/";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(97, 338);
+            label23.Name = "label23";
+            label23.Size = new Size(12, 15);
+            label23.TabIndex = 62;
+            label23.Text = "/";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new Point(57, 338);
+            label22.Name = "label22";
+            label22.Size = new Size(12, 15);
+            label22.TabIndex = 60;
+            label22.Text = "/";
+            // 
+            // txtyil
+            // 
+            txtyil.Location = new Point(115, 334);
+            txtyil.MaxLength = 4;
+            txtyil.Name = "txtyil";
+            txtyil.Size = new Size(41, 23);
+            txtyil.TabIndex = 59;
+            // 
+            // txtay
+            // 
+            txtay.Location = new Point(75, 335);
+            txtay.MaxLength = 2;
+            txtay.Name = "txtay";
+            txtay.Size = new Size(22, 23);
+            txtay.TabIndex = 58;
+            // 
+            // txtdakika
+            // 
+            txtdakika.Location = new Point(75, 380);
+            txtdakika.MaxLength = 2;
+            txtdakika.Name = "txtdakika";
+            txtdakika.Size = new Size(22, 23);
+            txtdakika.TabIndex = 57;
+            // 
+            // txtsaat
+            // 
+            txtsaat.Location = new Point(30, 380);
+            txtsaat.MaxLength = 2;
+            txtsaat.Name = "txtsaat";
+            txtsaat.Size = new Size(22, 23);
+            txtsaat.TabIndex = 56;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(30, 362);
+            label5.Name = "label5";
+            label5.Size = new Size(68, 15);
+            label5.TabIndex = 55;
+            label5.Text = "Ölüm Saati:";
+            label5.MouseDown += buttonValidate_Click;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(28, 317);
+            label14.Name = "label14";
+            label14.Size = new Size(74, 15);
+            label14.TabIndex = 53;
+            label14.Text = "ÖLüm Tarihi:";
+            // 
+            // txtgun
+            // 
+            txtgun.Location = new Point(27, 334);
+            txtgun.MaxLength = 2;
+            txtgun.Name = "txtgun";
+            txtgun.Size = new Size(25, 23);
+            txtgun.TabIndex = 54;
+            // 
             // FrmOlum
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(295, 386);
+            ClientSize = new Size(321, 436);
+            Controls.Add(label24);
+            Controls.Add(label23);
+            Controls.Add(label22);
+            Controls.Add(txtyil);
+            Controls.Add(txtay);
+            Controls.Add(txtdakika);
+            Controls.Add(txtsaat);
+            Controls.Add(label5);
+            Controls.Add(label14);
+            Controls.Add(txtgun);
             Controls.Add(grupkisiolum);
             Controls.Add(btnolum);
             Name = "FrmOlum";
@@ -253,6 +359,7 @@
             grupkisiolum.ResumeLayout(false);
             grupkisiolum.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -272,10 +379,20 @@
         private TextBox txtsoyad;
         private TextBox txtmedenihalkodu;
         private TextBox txtad;
-        private Button button2;
+        private Button btnSorgula;
         private Label label1;
         private TextBox txtTC;
         private Button btnolum;
         private GroupBox grupkisiolum;
+        private Label label24;
+        private Label label23;
+        private Label label22;
+        private TextBox txtyil;
+        private TextBox txtay;
+        private TextBox txtdakika;
+        private TextBox txtsaat;
+        private Label label5;
+        private Label label14;
+        private TextBox txtgun;
     }
 }

@@ -11,7 +11,7 @@ public partial class Sehir
 
     public string? Aciklamasi { get; set; }
 
-    public virtual ICollection<Cilt> Cilt { get; set; } = new List<Cilt>();
+    public virtual ICollection<Cilt> Cilts { get; set; } = new List<Cilt>();
 
-    public virtual ICollection<Kisi> Kisi { get; set; } = new List<Kisi>();
+    public virtual ICollection<Kisi> Kisis { get; set; } = new List<Kisi>();
 }

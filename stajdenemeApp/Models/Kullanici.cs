@@ -13,5 +13,5 @@ public partial class Kullanici
 
     public string? Parola { get; set; }
 
-    public virtual ICollection<OlayGecmisi> OlayGecmisi { get; set; } = new List<OlayGecmisi>();
+    public virtual ICollection<OlayGecmisi> OlayGecmisis { get; set; } = new List<OlayGecmisi>();
 }
