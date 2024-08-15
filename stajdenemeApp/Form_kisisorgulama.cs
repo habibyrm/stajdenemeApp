@@ -79,7 +79,6 @@ namespace stajdenemeApp
             // TC kimlik numarasının 11 haneli olduğundan emin olun
             if (tc.Length != 11 || !tc.All(char.IsDigit))
             {
-                MessageBoxHelper.ShowMessageBoxError("Lütfen 11 haneli geçerli bir TC kimlik numarası girin.");
                 return;
             }
             // Entity Framework DbContext'ini kullanarak veritabanı sorgusu
@@ -105,12 +104,10 @@ namespace stajdenemeApp
                 }
                 else
                 {
-                    MessageBoxHelper.ShowMessageBoxWarning("İlgili kişi bulunamadı.");
                 }
             }
             else
             {
-                MessageBoxHelper.ShowMessageBoxWarning("İlgili aile bulunamadı.");
             }
         }
 
@@ -159,12 +156,10 @@ namespace stajdenemeApp
                 }
                 else
                 {
-                    MessageBoxHelper.ShowMessageBoxWarning("İlgili kişi bulunamadı.");
                 }
             }
             else
             {
-                MessageBoxHelper.ShowMessageBoxWarning("İlgili aile bulunamadı.");
             }
         }
     }

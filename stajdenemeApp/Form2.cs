@@ -34,7 +34,6 @@ namespace stajdenemeApp
             FrmOlum frm = new FrmOlum();
             frm.ShowDialog();
         }
-
         private void btnevlenme_Click(object sender, EventArgs e)
         {
             FormEvlenme frm = new FormEvlenme();

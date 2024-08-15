@@ -20,10 +20,68 @@ namespace stajdenemeApp
         {
             InitializeComponent();
         }
+        DateTime zaman;
+        private void buttonValidate_Click(object sender, EventArgs e)
+        {
+            int day, month, year, hour, minute;
+
+            // Gün değerinin geçerli bir sayı olup olmadığını kontrol et.
+            if (!int.TryParse(txtgun.Text, out day) || day < 1 || day > 31)
+            {
+                MessageBoxHelper.ShowMessageBoxWarning("Geçerli bir gün değeri girin (1-31).");
+                return;
+            }
+
+            // Ay değerinin geçerli bir sayı olup olmadığını kontrol et.
+            if (!int.TryParse(txtay.Text, out month) || month < 1 || month > 12)
+            {
+                MessageBoxHelper.ShowMessageBoxWarning("Geçerli bir ay değeri girin (1-12).");
+                return;
+            }
+
+            // Yıl değerinin geçerli bir sayı olup olmadığını kontrol et.
+            if (!int.TryParse(txtyil.Text, out year) || year < 1)
+            {
+                MessageBoxHelper.ShowMessageBoxWarning("Geçerli bir yıl değeri girin.");
+                return;
+            }
+
+            // Saat değerinin geçerli bir sayı olup olmadığını kontrol et.
+            if (!int.TryParse(txtsaat.Text, out hour) || hour < 0 || hour > 23)
+            {
+                MessageBoxHelper.ShowMessageBoxWarning("Geçerli bir saat değeri girin (0-23).");
+                return;
+            }
+
+            // Dakika değerinin geçerli bir sayı olup olmadığını kontrol et.
+            if (!int.TryParse(txtdakika.Text, out minute) || minute < 0 || minute > 59)
+            {
+                MessageBox.Show("Geçerli bir dakika değeri girin (0-59).");
+                return;
+            }
+
+            // Geçerli bir tarih ve saat olup olmadığını kontrol et.
+            try
+            {
+                DateTime dateTime = new DateTime(year, month, day, hour, minute, 0);
+                zaman = dateTime;
+
+                // Gelecek bir tarih olup olmadığını kontrol et.
+                if (dateTime > DateTime.Now)
+                {
+                    MessageBoxHelper.ShowMessageBoxWarning("Gelecek tarihler kabul edilemez. Lütfen bugünün tarihi veya daha önceki bir tarihi girin.");
+                    return;
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBoxHelper.ShowMessageBoxWarning("Girilen değerler geçerli bir tarih ve saat oluşturmuyor.");
+            }
+        }
 
         public void Kisi_Bilgileri(string tc)
         {
-            using (var context = new StajdenemeContext())
+            using (var context = new DbContextSingelton().Instance)
             {
                 try
                 {
@@ -32,6 +90,7 @@ namespace stajdenemeApp
                     if (kisi == null)
                     {
                         MessageBoxHelper.ShowMessageBoxError("Kişi Bulunamadı");
+                        MessageBox.Show("Kişi Bulunamadı", "hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                     txtad.Text = kisi.Ad;
@@ -50,7 +109,7 @@ namespace stajdenemeApp
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnSorgula_Click(object sender, EventArgs e)
         {
             string tc = txtTC.Text;
 
@@ -66,8 +125,9 @@ namespace stajdenemeApp
 
         private void btnolum_Click(object sender, EventArgs e)
         {
-            string tcKimlikNo=txtTC.Text;
-            using (var context = new StajdenemeContext())
+            buttonValidate_Click(sender, e);
+            string tcKimlikNo = txtTC.Text;
+            using (var context = new DbContextSingelton().Instance)
             {
                 // TC kimlik numarasına göre kaydı bul
                 var kisi = context.Kisi.SingleOrDefault(k => k.Tc == tcKimlikNo);
@@ -83,13 +143,15 @@ namespace stajdenemeApp
                         kisi.DurumKodu = 3;
                         context.SaveChanges();
                         MessageBox.Show("İşlem başarıyla gerçekleştirilmiştir.");
-                        FormHelper.Clear_Textboxs(grupkisiolum);
+                        FormHelper.Clear_Textboxs(this);
+                        OlayKayit kayit = new OlayKayit();
+                        kayit.OlayKaydi(tcKimlikNo, zaman, 2);
                     }
                 }
                 else
                 {
                     MessageBoxHelper.ShowMessageBoxError("Kayıt bulunamadı.");
-                    FormHelper.Clear_Textboxs(grupkisiolum);
+                    FormHelper.Clear_Textboxs(this);
                 }
             }
         }

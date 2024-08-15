@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using stajdenemeApp.Core;
 using stajdenemeApp.Models;
 
 namespace stajdenemeApp.ComplexModels
@@ -47,7 +48,7 @@ namespace stajdenemeApp.ComplexModels
                 {
                     if (string.IsNullOrEmpty(textbox.Text))
                     {
-                        MessageBox.Show("Boş alan bırakılmamalıdır.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBoxHelper.ShowMessageBoxError("Boş alan bırakılmamalıdır.");
                         Clear_Textboxs(control);
                         return;
                     }
@@ -56,7 +57,7 @@ namespace stajdenemeApp.ComplexModels
                 {
                     if (string.IsNullOrEmpty(combobox.Text))
                     {
-                        MessageBox.Show("Boş alan bırakılmamalıdır.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBoxHelper.ShowMessageBoxError("Boş alan bırakılmamalıdır.");
                         Clear_Textboxs(control);
                         return;
                     }
@@ -101,15 +102,13 @@ namespace stajdenemeApp.ComplexModels
             return 0;
 
         }
-
-        public static int YasHesaplama(string tc)
+        public static int YasHesaplama(DateTime? v)
         {
-            DogumTarih v=Dogumtarihi(tc);
-            DateTime tarih = v.Birthday;
+            DateTime tarih = v.Value.Date;
             DateTime today = DateTime.Today;
             int yas = today.Year - tarih.Year;
 
-            // Eğer doğum günü bu yıl henüz gelmediyse, yaşı bir azalt.
+            //Eğer doğum günü bu yıl henüz gelmediyse, yaşı bir azalt.
             if (tarih > today.AddYears(-yas))
             {
                 yas--;
@@ -117,16 +116,15 @@ namespace stajdenemeApp.ComplexModels
 
             return yas;
         }
-
         public static KisiBilgileri KisiBilgileriGetir(string tc)
         {
-            using (var context = new StajdenemeContext())
-            {
+            var context = new DbContextSingelton().Instance;
+            
                 return context.Kisi
                         .Include(k => k.Aile)
-                        .Include(k => k.Medenihal)
+                        .Include(k => k.MedeniHal)
                         .Include(k => k.Durum)
-                        .Include(k=>k.OlayGecmisi)
+                        .Include(k => k.OlayGecmisi)
                         .Where(k => k.Tc == tc)
                         .Select(k => new KisiBilgileri
                         {
@@ -135,22 +133,21 @@ namespace stajdenemeApp.ComplexModels
                             AileSiraNo = k.Aile.AileSiraNo.Value,
                             BireySiraNo = k.Aile.BireySiraNo.Value,
                             EsTc = k.Aile.EsTc,
-                            cilt_kodu=k.Aile.CiltKodu,
+                            cilt_kodu = k.Aile.CiltKodu,
                             AnneTc = k.Aile.AnneTc,
                             BabaTc = k.Aile.BabaTc,
-                            MedeniHal_kodu=k.MedeniHalKodu.Value,
-                            MedeniHal_aciklamasi = k.Medenihal.Aciklamasi,
+                            MedeniHal_kodu = k.MedeniHalKodu,
+                            MedeniHal_aciklamasi = k.MedeniHal.Aciklamasi,
                             Durum_aciklamasi = k.Durum.Aciklamasi,
-                            Durum_kodu=k.DurumKodu.Value,
-                            cinsiyet_kodu=k.CinsiyetKodu.Value,
-                            Tc=tc
-                        }).FirstOrDefault();
-            }
+                            Durum_kodu = k.DurumKodu,
+                            cinsiyet_kodu = k.CinsiyetKodu,
+                            Tc = tc
+                        }).FirstOrDefault();            
         }
 
         public static KisiBilgileri EsBilgileriGetir(string tc)
         {
-            using (var context = new StajdenemeContext())
+            using (var context = new DbContextSingelton().Instance)
             {
                 return context.Kisi
                         .Include(k => k.Aile)
@@ -164,14 +161,14 @@ namespace stajdenemeApp.ComplexModels
             }
         }
 
-        public static DogumTarih Dogumtarihi(string tc) {
-            using (var context = new StajdenemeContext())
+        public static DateTime? Dogumtarihi(string tc)
+        {
+            using (var context = new DbContextSingelton().Instance)
                 return context.OlayGecmisi
-                    .Include(k=>k.Kisi)
+                    .Include(k => k.Kisi)
                     .Where(k => k.KisiTc == tc)
-                        .Select(k => new DogumTarih
-                        { Birthday=k.Zaman.Value
-                        }).FirstOrDefault();
+                    .Select(k => k.Zaman)
+                    .FirstOrDefault();
         }
     }
 }

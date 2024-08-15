@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
+using stajdenemeApp.ComplexModels;
 using stajdenemeApp.Models;
 using System.Diagnostics;
 
