@@ -2,6 +2,7 @@
 using stajdenemeApp.Core;
 using stajdenemeApp.Models;
 using System.Data;
+using System.Windows.Forms;
 
 namespace stajdenemeApp
 {
@@ -74,9 +75,25 @@ namespace stajdenemeApp
             // Entity Framework DbContext'ini kullanarak veritabanı sorgusu
             Kisi_Bilgileri(tc);
 
+            using (var context = new StajdenemeContext())
+            {
+                // TC numarasına ait olay geçmişi verilerini getirir
+                var query = from olay in context.OlayGecmisi
+                            where olay.KisiTc == tc
+                            select new
+                            {
+                                olay.OlayKodu,
+                                olay.KisiTc,
+                                olay.EsTc,
+                                olay.Zaman,
+                                olay.KullaniciId
+                            };
 
+                // DataGridView'in datasource'unu getirilen verilere set eder
+                dataGridViewolay.DataSource = query.ToList();
+
+            }
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
             int aileSiraNo = int.Parse(txtasn.Text);

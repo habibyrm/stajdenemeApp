@@ -78,6 +78,8 @@
             label17 = new Label();
             label18 = new Label();
             txtgun = new TextBox();
+            comboBoxcilt = new ComboBox();
+            label19 = new Label();
             grupkisi1.SuspendLayout();
             grupkisi2.SuspendLayout();
             SuspendLayout();
@@ -455,7 +457,7 @@
             // label24
             // 
             label24.AutoSize = true;
-            label24.Location = new Point(237, 397);
+            label24.Location = new Point(56, 398);
             label24.Name = "label24";
             label24.Size = new Size(12, 15);
             label24.TabIndex = 63;
@@ -464,7 +466,7 @@
             // label23
             // 
             label23.AutoSize = true;
-            label23.Location = new Point(279, 344);
+            label23.Location = new Point(98, 345);
             label23.Name = "label23";
             label23.Size = new Size(12, 15);
             label23.TabIndex = 64;
@@ -473,7 +475,7 @@
             // label22
             // 
             label22.AutoSize = true;
-            label22.Location = new Point(239, 344);
+            label22.Location = new Point(58, 345);
             label22.Name = "label22";
             label22.Size = new Size(12, 15);
             label22.TabIndex = 62;
@@ -481,7 +483,7 @@
             // 
             // txtyil
             // 
-            txtyil.Location = new Point(297, 340);
+            txtyil.Location = new Point(116, 341);
             txtyil.MaxLength = 4;
             txtyil.Name = "txtyil";
             txtyil.Size = new Size(41, 23);
@@ -489,7 +491,7 @@
             // 
             // txtay
             // 
-            txtay.Location = new Point(257, 341);
+            txtay.Location = new Point(76, 342);
             txtay.MaxLength = 2;
             txtay.Name = "txtay";
             txtay.Size = new Size(22, 23);
@@ -497,7 +499,7 @@
             // 
             // txtdakika
             // 
-            txtdakika.Location = new Point(254, 394);
+            txtdakika.Location = new Point(73, 395);
             txtdakika.MaxLength = 2;
             txtdakika.Name = "txtdakika";
             txtdakika.Size = new Size(22, 23);
@@ -505,7 +507,7 @@
             // 
             // txtsaat
             // 
-            txtsaat.Location = new Point(209, 394);
+            txtsaat.Location = new Point(28, 395);
             txtsaat.MaxLength = 2;
             txtsaat.Name = "txtsaat";
             txtsaat.Size = new Size(22, 23);
@@ -514,7 +516,7 @@
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(209, 376);
+            label17.Location = new Point(28, 377);
             label17.Name = "label17";
             label17.Size = new Size(83, 15);
             label17.TabIndex = 57;
@@ -523,7 +525,7 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(210, 323);
+            label18.Location = new Point(29, 324);
             label18.Name = "label18";
             label18.Size = new Size(86, 15);
             label18.TabIndex = 55;
@@ -531,17 +533,37 @@
             // 
             // txtgun
             // 
-            txtgun.Location = new Point(209, 340);
+            txtgun.Location = new Point(28, 341);
             txtgun.MaxLength = 2;
             txtgun.Name = "txtgun";
             txtgun.Size = new Size(25, 23);
             txtgun.TabIndex = 56;
+            // 
+            // comboBoxcilt
+            // 
+            comboBoxcilt.FormattingEnabled = true;
+            comboBoxcilt.Items.AddRange(new object[] { "Küçükçekmece-İstanbul", "Bakırköy-İstanbul", "Atakent-İstanbul", "YeşilKöy-İstanbul", "Bostancı-İstanbul", "Çankaya-Ankara", "Yenimahalle-Ankara", "Eryaman-Ankara", "İncek-Ankara", "Polatlı-Ankara", "Serdivan-Sakarya", "Akyazı-Sakarya", "Sapanca-Sakarya", "Hendek-Sakarya", "Arifiye-Sakarya", "Reşadiye-Tokat", "Zile-Tokat", "Niksar-Tokat", "Almus-Tokat", "Pazar-Tokat", "Bereketli-Tokat" });
+            comboBoxcilt.Location = new Point(228, 341);
+            comboBoxcilt.Name = "comboBoxcilt";
+            comboBoxcilt.Size = new Size(180, 23);
+            comboBoxcilt.TabIndex = 66;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(229, 324);
+            label19.Name = "label19";
+            label19.Size = new Size(67, 15);
+            label19.TabIndex = 65;
+            label19.Text = "Cilt Seçiniz:";
             // 
             // FormEvlenme
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(604, 450);
+            Controls.Add(comboBoxcilt);
+            Controls.Add(label19);
             Controls.Add(label24);
             Controls.Add(label23);
             Controls.Add(label22);
@@ -617,5 +639,7 @@
         private Label label17;
         private Label label18;
         private TextBox txtgun;
+        private ComboBox comboBoxcilt;
+        private Label label19;
     }
 }

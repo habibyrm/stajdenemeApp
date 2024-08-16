@@ -176,6 +176,20 @@ namespace stajdenemeApp
         {
             buttonValidate_Click(sender, e);
             EkranKontrol();
+            int? maxAileSiraNo;
+            int ciltkodu = FormHelper.Cilt_Kontrol(comboBoxcilt.Text);
+            using (var context = new DbContextSingelton().Instance) {
+                var kisi1 = context.Kisi.SingleOrDefault(k => k.Tc == txtTC1.Text);
+                var kisi2 = context.Kisi.SingleOrDefault(k => k.Tc == txtTC2.Text);
+                maxAileSiraNo = context.Aile
+                    .Max(a => (int?)a.AileSiraNo);
+                kisi1.Aile.AileSiraNo=maxAileSiraNo;
+                kisi1.Aile.BireySiraNo = 1;
+                kisi1.MedeniHalKodu = 2;
+                kisi2.Aile.AileSiraNo = maxAileSiraNo;
+                kisi2.Aile.BireySiraNo = 2;
+                kisi2.MedeniHalKodu=2;
+            }
             OlayKayit kayit = new OlayKayit();
             kayit.OlayKaydi(txtTC1.Text, txtTC2.Text, zaman, 3);
             kayit.OlayKaydi(txtTC2.Text, txtTC1.Text, zaman, 3);

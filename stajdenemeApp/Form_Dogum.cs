@@ -315,6 +315,7 @@ namespace stajdenemeApp
                 }
                 OlayKayit kayit = new OlayKayit();
                 kayit.OlayKaydi(txtcocuktc.Text, zaman, 1);
+                kayit.OlayKaydi(txtannetc.Text, txtbabatc.Text, zaman, 1);
             }
             catch (Exception ex)
             {

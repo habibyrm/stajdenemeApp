@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using stajdenemeApp.Core;
 using stajdenemeApp.Models;
+using System.Windows.Forms;
+
 
 namespace stajdenemeApp.ComplexModels
 {
@@ -100,7 +102,95 @@ namespace stajdenemeApp.ComplexModels
                 return 4;
             }
             return 0;
+        }
 
+        public static int Cilt_Kontrol(string cilt)
+        {
+            if (cilt == "Küçükçekmece-İstanbul")
+            {
+                return 1;
+            }
+            else if (cilt == "Bakırköy - İstanbul")
+            {
+                return 2;
+            }
+            else if (cilt == "Atakent - İstanbul")
+            {
+                return 3;
+            }
+            else if (cilt == "YeşilKöy - İstanbul")
+            {
+                return 4;
+            }
+            else if (cilt == "Bostancı - İstanbul")
+            {
+                return 5;
+            }
+            else if (cilt == "Çankaya - Ankara")
+            {
+                return 6;
+            }
+            else if (cilt == "Yenimahalle - Ankara")
+            {
+                return 7;
+            }
+            else if (cilt == "Eryaman - Ankara")
+            {
+                return 8;
+            }
+            else if (cilt == "İncek - Ankara")
+            {
+                return 9;
+            }
+            else if (cilt == "Polatlı - Ankara")
+            {
+                return 10;
+            }
+            else if (cilt == "Serdivan - Sakarya")
+            {
+                return 11;
+            }
+            else if (cilt == "Akyazı - Sakarya")
+            {
+                return 12;
+            }
+            else if (cilt == "Sapanca - Sakarya")
+            {
+                return 13;
+            }
+            else if (cilt == "Hendek - Sakarya")
+            {
+                return 14;
+            }
+            else if (cilt == "Arifiye - Sakarya")
+            {
+                return 15;
+            }
+            else if (cilt == "Reşadiye - Tokat")
+            {
+                return 16;
+            }
+            else if (cilt == "Zile - Tokat")
+            {
+                return 17;
+            }
+            else if (cilt == "Niksar - Tokat")
+            {
+                return 18;
+            }
+            else if (cilt == "Almus - Tokat")
+            {
+                return 19;
+            }
+            else if (cilt == "Pazar - Tokat")
+            {
+                return 20;
+            }
+            else if (cilt == "Bereketli - Tokat")
+            {
+                return 21;
+            }
+            return 0;
         }
         public static int YasHesaplama(DateTime? v)
         {

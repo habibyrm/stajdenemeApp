@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
+            dataGridViewolay = new DataGridView();
             txtTC = new TextBox();
             label1 = new Label();
             button2 = new Button();
@@ -62,17 +62,17 @@
             label6 = new Label();
             label13 = new Label();
             grupailebilgileri = new GroupBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewolay).BeginInit();
             grupailebilgileri.SuspendLayout();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dataGridViewolay
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(326, 26);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(431, 395);
-            dataGridView1.TabIndex = 0;
+            dataGridViewolay.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewolay.Location = new Point(326, 26);
+            dataGridViewolay.Name = "dataGridViewolay";
+            dataGridViewolay.Size = new Size(431, 395);
+            dataGridViewolay.TabIndex = 0;
             // 
             // txtTC
             // 
@@ -168,7 +168,6 @@
             btntemizle.TabIndex = 12;
             btntemizle.Text = "Yeni Sorgu";
             btntemizle.UseVisualStyleBackColor = true;
-            //btntemizle.Click += btn;
             // 
             // btnonceki
             // 
@@ -403,10 +402,10 @@
             Controls.Add(button2);
             Controls.Add(label1);
             Controls.Add(txtTC);
-            Controls.Add(dataGridView1);
+            Controls.Add(dataGridViewolay);
             Name = "Form_kisisorgulama";
             Text = "Kişi Sorgulama";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewolay).EndInit();
             grupailebilgileri.ResumeLayout(false);
             grupailebilgileri.PerformLayout();
             ResumeLayout(false);
@@ -415,7 +414,7 @@
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dataGridViewolay;
         private TextBox txtTC;
         private Label label1;
         private Button button2;
