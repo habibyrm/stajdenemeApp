@@ -83,7 +83,7 @@ namespace stajdenemeApp
         }
         public bool EkranKontrol()
         {
-            if (!string.IsNullOrEmpty(txtTC1.Text) || !string.IsNullOrEmpty(txtTC2.Text))
+            if (string.IsNullOrEmpty(txtTC1.Text) || string.IsNullOrEmpty(txtTC2.Text))
             {
                 MessageBoxHelper.ShowMessageBoxError("Lütfen her 2 kişinin de T.C. verilerini girinin!");
                 return false;
@@ -178,21 +178,45 @@ namespace stajdenemeApp
             EkranKontrol();
             int? maxAileSiraNo;
             int ciltkodu = FormHelper.Cilt_Kontrol(comboBoxcilt.Text);
-            using (var context = new DbContextSingelton().Instance) {
-                var kisi1 = context.Kisi.SingleOrDefault(k => k.Tc == txtTC1.Text);
-                var kisi2 = context.Kisi.SingleOrDefault(k => k.Tc == txtTC2.Text);
-                maxAileSiraNo = context.Aile
+            try
+            {
+                using (var context = new DbContextSingelton().Instance)
+                {
+                    var kisi1 = context.Kisi.SingleOrDefault(k => k.Tc == txtTC1.Text);
+                    var kisi2 = context.Kisi.SingleOrDefault(k => k.Tc == txtTC2.Text);
+                    var aile1 = context.Aile.SingleOrDefault(a => a.IdAile == kisi1.AileKodu);
+                    var aile2 = context.Aile.SingleOrDefault(a => a.IdAile == kisi2.AileKodu);
+                    if (kisi1 == null)
+                    {
+                        throw new Exception($"Kişi bulunamadı: {txtTC1.Text}");
+                    }
+
+                    if (kisi2 == null)
+                    {
+                        throw new Exception($"Kişi bulunamadı: {txtTC2.Text}");
+                    }
+                    maxAileSiraNo = context.Aile
                     .Max(a => (int?)a.AileSiraNo);
-                kisi1.Aile.AileSiraNo=maxAileSiraNo;
-                kisi1.Aile.BireySiraNo = 1;
-                kisi1.MedeniHalKodu = 2;
-                kisi2.Aile.AileSiraNo = maxAileSiraNo;
-                kisi2.Aile.BireySiraNo = 2;
-                kisi2.MedeniHalKodu=2;
+                    maxAileSiraNo += 1;
+                    aile1.AileSiraNo = maxAileSiraNo.Value;
+                    aile1.BireySiraNo = 1;
+                    kisi1.MedeniHalKodu = 2;
+                    aile1.EsTc = kisi2.Tc;
+                    aile2.AileSiraNo = maxAileSiraNo.Value;
+                    aile2.BireySiraNo = 2;
+                    kisi2.MedeniHalKodu = 2;
+                    aile2.EsTc = kisi1.Tc;
+                    context.SaveChanges();
+                    OlayKayit kayit = new OlayKayit();
+                    kayit.OlayKaydi(txtTC1.Text, txtTC2.Text, zaman, 3);
+                    kayit.OlayKaydi(txtTC2.Text, txtTC1.Text, zaman, 3);
+                    MessageBox.Show("İşlem başarıyla gerçekleştirildi.");
+                }
             }
-            OlayKayit kayit = new OlayKayit();
-            kayit.OlayKaydi(txtTC1.Text, txtTC2.Text, zaman, 3);
-            kayit.OlayKaydi(txtTC2.Text, txtTC1.Text, zaman, 3);
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Bir hata oluştu! {ex}");
+            }
         }
     }
 }

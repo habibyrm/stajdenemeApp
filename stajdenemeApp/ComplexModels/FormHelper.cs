@@ -218,6 +218,7 @@ namespace stajdenemeApp.ComplexModels
                         .Where(k => k.Tc == tc)
                         .Select(k => new KisiBilgileri
                         {
+                            Id=k.IdKisi,
                             Ad = k.Ad,
                             Soyad = k.Soyad,
                             AileSiraNo = k.Aile.AileSiraNo.Value,
@@ -244,7 +245,9 @@ namespace stajdenemeApp.ComplexModels
                         .Where(k => k.Tc == tc)
                         .Select(k => new KisiBilgileri
                         {
+                            Id=k.IdKisi,
                             Ad = k.Ad,
+                            MedeniHal_kodu=k.MedeniHalKodu,
                             AileSiraNo = k.Aile.AileSiraNo.Value,
                             BireySiraNo = k.Aile.BireySiraNo.Value,
                             EsTc=k.Aile.EsTc

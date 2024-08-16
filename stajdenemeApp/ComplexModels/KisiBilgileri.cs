@@ -13,6 +13,7 @@
         public int MedeniHal_kodu { get; set; }
         public int AileSiraNo { get; set; }
         public int BireySiraNo { get; set; }
+        public int Id { get; set; }
         public int Durum_kodu { get; set; }
         public int cilt_kodu { get; set; }
         public int cinsiyet_kodu { get; set; }
