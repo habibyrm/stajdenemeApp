@@ -156,7 +156,8 @@ namespace stajdenemeApp.ComplexModels
                         {
                             Ad = k.Ad,
                             AileSiraNo = k.Aile.AileSiraNo.Value,
-                            BireySiraNo = k.Aile.BireySiraNo.Value
+                            BireySiraNo = k.Aile.BireySiraNo.Value,
+                            EsTc=k.Aile.EsTc
                         }).FirstOrDefault();
             }
         }

@@ -106,11 +106,6 @@ namespace stajdenemeApp
                     MessageBoxHelper.ShowMessageBoxWarning("Gelecek tarihler kabul edilemez. Lütfen bugünün tarihi veya daha önceki bir tarihi girin.");
                     return;
                 }
-                if (7 < FormHelper.YasHesaplama(dateTime))
-                {
-                    MessageBoxHelper.ShowMessageBoxWarning("Doğan çocuğun yaşı 7 den küçük olmalıdır!");
-                    return;
-                }
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -184,6 +179,15 @@ namespace stajdenemeApp
             }
         }
 
+        public bool IsEsMi()
+        {
+            string estc_anne = FormHelper.EsBilgileriGetir(txtannetc.Text).EsTc;
+            string estc_baba = FormHelper.EsBilgileriGetir(txtbabatc.Text).EsTc;
+            if (estc_anne == txtannetc.Text) { return true; }
+            if (estc_baba == txtbabatc.Text) { return true; }
+            return false;
+        }
+
         private void btnannesorgula_Click(object sender, EventArgs e)
         {
 
@@ -244,7 +248,19 @@ namespace stajdenemeApp
         private void btndogur_Click(object sender, EventArgs e)
         {
             buttonValidate_Click(sender, e);
+            FormHelper.Dogum_Kontrol(grupaile);
             FormHelper.Dogum_Kontrol(grup_cocuk);
+            if (7 < FormHelper.YasHesaplama(zaman))
+            {
+                MessageBoxHelper.ShowMessageBoxWarning("Doğan çocuğun yaşı 7 den küçük olmalıdır!");
+                txtyil.Focus();
+                return;
+            }
+            if (IsEsMi()==false) 
+            {
+                MessageBoxHelper.ShowMessageBoxError("Bu kişiler evli değildir!");
+                return;
+            }
             if (!string.IsNullOrEmpty(txtcocukad.Text))
             {
                 string tc = TC.GenerateRandomTC();
