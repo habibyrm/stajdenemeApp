@@ -218,5 +218,10 @@ namespace stajdenemeApp
                 MessageBox.Show($"Bir hata oluştu! {ex}");
             }
         }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
     }
 }

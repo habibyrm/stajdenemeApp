@@ -67,7 +67,6 @@
             txtasn2 = new TextBox();
             txtdurum2 = new TextBox();
             btnevlenme = new Button();
-            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             label24 = new Label();
             label23 = new Label();
             label22 = new Label();
@@ -628,7 +627,6 @@
         private TextBox txtasn2;
         private TextBox txtdurum2;
         private Button btnevlenme;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Label label24;
         private Label label23;
         private Label label22;

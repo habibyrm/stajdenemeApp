@@ -108,13 +108,21 @@ namespace stajdenemeApp
                 {
                     txtTC.Text = entKisi.Tc;
                     Kisi_Bilgileri(entKisi.Tc);
+                    // TC numarasına ait olay geçmişi verilerini getirir
+                    var query = from olay in context.OlayGecmisi
+                                where olay.KisiTc == entKisi.Tc
+                                select new
+                                {
+                                    olay.OlayKodu,
+                                    olay.KisiTc,
+                                    olay.EsTc,
+                                    olay.Zaman,
+                                    olay.KullaniciId
+                                };
+
+                    // DataGridView'in datasource'unu getirilen verilere set eder
+                    dataGridViewolay.DataSource = query.ToList();
                 }
-                else
-                {
-                }
-            }
-            else
-            {
             }
         }
 
@@ -160,13 +168,21 @@ namespace stajdenemeApp
                 {
                     txtTC.Text = entKisi.Tc;
                     Kisi_Bilgileri(entKisi.Tc);
+                        // TC numarasına ait olay geçmişi verilerini getirir
+                        var query = from olay in context.OlayGecmisi
+                                    where olay.KisiTc == entKisi.Tc
+                                    select new
+                                    {
+                                        olay.OlayKodu,
+                                        olay.KisiTc,
+                                        olay.EsTc,
+                                        olay.Zaman,
+                                        olay.KullaniciId
+                                    };
+
+                        // DataGridView'in datasource'unu getirilen verilere set eder
+                        dataGridViewolay.DataSource = query.ToList();
                 }
-                else
-                {
-                }
-            }
-            else
-            {
             }
         }
     }

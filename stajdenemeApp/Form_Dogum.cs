@@ -12,6 +12,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml;
+using System.IO;
+using System.Reflection.Metadata;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
 using stajdenemeApp.Models;
 
 namespace stajdenemeApp
@@ -53,6 +57,96 @@ namespace stajdenemeApp
                 textBox.Text = textBox.Text.Substring(0, 11);
                 // İmleci en sona yerleştir
                 textBox.SelectionStart = textBox.Text.Length;
+            }
+        }
+        private void pdf_dokme() 
+        {
+            try
+            {
+                // Create a new PDF document
+                PdfDocument document = new PdfDocument();
+                document.Info.Title = "Generated PDF Document";
+
+                // Create an empty page
+                PdfPage page = document.AddPage();
+
+                // Get an XGraphics object for drawing
+                XGraphics gfx = XGraphics.FromPdfPage(page);
+
+                // Create a font
+                XFont font = new XFont("Verdana", 20);
+
+                // Draw the header text
+                gfx.DrawString("Doğum Dökümanı", font, XBrushes.Black,
+                    new XRect(0, 0, page.Width, 50), XStringFormats.Center);
+
+                // Draw the user-entered values
+                XFont regularFont = new XFont("Verdana", 18);
+
+                XBrush backgroundColor = XBrushes.LightGray;
+
+                gfx.DrawRectangle(backgroundColor, 75, 85, txtcocuktc.TextLength * 12, 30);
+                gfx.DrawString($"TC: {txtcocuktc.Text}", regularFont, XBrushes.Black,
+                    new XRect(40, 90, page.Width - 80, 30), XStringFormats.TopLeft);
+
+                gfx.DrawRectangle(backgroundColor, 80, 135, txtcocukad.TextLength * 12, 30);
+                gfx.DrawString($"Adı: {txtcocukad.Text}", regularFont, XBrushes.Black,
+                    new XRect(40, 140, page.Width - 80, 30), XStringFormats.TopLeft);
+
+                gfx.DrawRectangle(backgroundColor, 115, 185, txtsoyad.TextLength * 12, 30);
+                gfx.DrawString($"Soyadı: {txtsoyad.Text}", regularFont, XBrushes.Black,
+                    new XRect(40, 190, page.Width - 80, 30), XStringFormats.TopLeft);
+
+                gfx.DrawRectangle(backgroundColor, 173, 235, zaman.ToString().Length * 12, 30);
+                gfx.DrawString($"Doğum Tarihi: {zaman.Day+zaman.Month+zaman.Year}", regularFont, XBrushes.Black,
+                    new XRect(40, 240, page.Width - 80, 30), XStringFormats.TopLeft);
+
+                gfx.DrawRectangle(backgroundColor, 135, 285, txtannead.TextLength * 12, 30);
+                gfx.DrawString($"Anne Adı: {txtannead.Text}", regularFont, XBrushes.Black,
+                    new XRect(40, 290, page.Width - 80, 30), XStringFormats.TopLeft);
+
+                gfx.DrawRectangle(backgroundColor, 135, 335, txtbabad.TextLength * 12, 30);
+                gfx.DrawString($"Baba Adı: {txtbabad.Text}", regularFont, XBrushes.Black,
+                    new XRect(40, 340, page.Width - 80, 30), XStringFormats.TopLeft);
+                // Save the document to a file
+                //string outputPath = @"C:\Users\bayra\source\repos\pdfdeneme\deneme.pdf";
+                string iconPath = @"C:\Users\bayra\OneDrive\Masaüstü\assstes\a.png"; // İkonun dosya yolu
+
+                // İkonu yükleyin
+                XImage icon = XImage.FromFile(iconPath);
+
+                // İkonun boyutunu belirleyin
+                double iconWidth = 75;
+                double iconHeight = 75;
+
+                // İkonu sağ alt köşeye yerleştirin
+                double xPosition = page.Width - iconWidth - 40; // Sağdan 20 piksel içeri
+                double yPosition = page.Height - iconHeight - 200; // Alttan 20 piksel yukarı
+
+                gfx.DrawImage(icon, xPosition, yPosition, iconWidth, iconHeight);
+                string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                // PDF dosyasının kaydedileceği yolu belirler
+                string outputPath = Path.Combine(desktopPath, "deneme.pdf");
+
+                document.Save(outputPath);
+
+                if (File.Exists(outputPath))
+                {
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = outputPath,
+                        UseShellExecute = true // Use the default PDF viewer to open the file
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("PDF file was not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Hata: \n{ex}", "Error", MessageBoxButtons.OK);
             }
         }
 
@@ -183,9 +277,31 @@ namespace stajdenemeApp
         {
             string estc_anne = FormHelper.EsBilgileriGetir(txtannetc.Text).EsTc;
             string estc_baba = FormHelper.EsBilgileriGetir(txtbabatc.Text).EsTc;
-            if (estc_anne == txtannetc.Text) { return true; }
-            if (estc_baba == txtbabatc.Text) { return true; }
+            if (estc_anne == txtbabatc.Text) { return true; }
+            if (estc_baba == txtannetc.Text) { return true; }
             return false;
+        }
+
+        public bool IsKisiVarMi() 
+        {
+            using (var context = new DbContextSingelton().Instance) 
+            {
+                var kisi = context.Kisi.FirstOrDefault(x => x.Ad == txtcocukad.Text);
+                if (kisi != null) 
+                {
+                    int aileSiraNo = Int32.Parse(txtanneasn.Text);
+                    var aile = context.Aile.FirstOrDefault(x => x.AileSiraNo == aileSiraNo);
+                    if (aile != null) 
+                    {
+                        var tarih = context.OlayGecmisi.FirstOrDefault(x=>x.KisiTc==kisi.Tc && x.Zaman==zaman);
+                        if (tarih != null) 
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
         }
 
         private void btnannesorgula_Click(object sender, EventArgs e)
@@ -261,6 +377,11 @@ namespace stajdenemeApp
                 MessageBoxHelper.ShowMessageBoxError("Bu kişiler evli değildir!");
                 return;
             }
+            if (IsKisiVarMi()) 
+            {
+                MessageBoxHelper.ShowMessageBoxError("Bu kişiye ait kayıt vardır!");
+                return;
+            }
             if (!string.IsNullOrEmpty(txtcocukad.Text))
             {
                 string tc = TC.GenerateRandomTC();
@@ -322,7 +443,7 @@ namespace stajdenemeApp
                 MessageBox.Show($"Veritabanına veri eklenirken hata oluştu.{ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            MessageBox.Show("Veri başarıyla eklendi!");
+            pdf_dokme();
         }
     }
 }
