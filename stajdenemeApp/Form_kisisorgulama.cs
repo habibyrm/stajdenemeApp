@@ -144,11 +144,6 @@ namespace stajdenemeApp
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ClearTextboxs(this);
-        }
-
         private void Form_kisisorgulama_Load(object sender, EventArgs e)
         {
 
@@ -168,22 +163,28 @@ namespace stajdenemeApp
                 {
                     txtTC.Text = entKisi.Tc;
                     Kisi_Bilgileri(entKisi.Tc);
-                        // TC numarasına ait olay geçmişi verilerini getirir
-                        var query = from olay in context.OlayGecmisi
-                                    where olay.KisiTc == entKisi.Tc
-                                    select new
-                                    {
-                                        olay.OlayKodu,
-                                        olay.KisiTc,
-                                        olay.EsTc,
-                                        olay.Zaman,
-                                        olay.KullaniciId
-                                    };
+                    // TC numarasına ait olay geçmişi verilerini getirir
+                    var query = from olay in context.OlayGecmisi
+                                where olay.KisiTc == entKisi.Tc
+                                select new
+                                {
+                                    olay.OlayKodu,
+                                    olay.KisiTc,
+                                    olay.EsTc,
+                                    olay.Zaman,
+                                    olay.KullaniciId
+                                };
 
-                        // DataGridView'in datasource'unu getirilen verilere set eder
-                        dataGridViewolay.DataSource = query.ToList();
+                    // DataGridView'in datasource'unu getirilen verilere set eder
+                    dataGridViewolay.DataSource = query.ToList();
                 }
             }
+        }
+
+        private void btntemizle_Click(object sender, EventArgs e)
+        {
+            ClearTextboxs(this);
+            dataGridViewolay.DataSource = null;
         }
     }
 }

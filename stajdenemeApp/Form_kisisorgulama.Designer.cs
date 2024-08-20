@@ -168,6 +168,7 @@
             btntemizle.TabIndex = 12;
             btntemizle.Text = "Yeni Sorgu";
             btntemizle.UseVisualStyleBackColor = true;
+            btntemizle.Click += btntemizle_Click;
             // 
             // btnonceki
             // 
