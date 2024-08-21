@@ -13,6 +13,14 @@ namespace stajdenemeApp
             InitializeComponent();
         }
 
+        public void txtTC_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Sadece rakamlara ve kontrol tuşlarına (örneğin Backspace) izin ver
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
         public void Kisi_Bilgileri(string tc)
         {
             using (var context = new StajdenemeContext())
@@ -74,7 +82,6 @@ namespace stajdenemeApp
             }
             // Entity Framework DbContext'ini kullanarak veritabanı sorgusu
             Kisi_Bilgileri(tc);
-
             using (var context = new StajdenemeContext())
             {
                 // TC numarasına ait olay geçmişi verilerini getirir
@@ -125,30 +132,6 @@ namespace stajdenemeApp
                 }
             }
         }
-
-        public void ClearTextboxs(Control control)
-        {
-            foreach (Control c in control.Controls)
-            {
-                if (c.HasChildren)
-                {
-                    ClearTextboxs(c);
-                }
-                else
-                {
-                    if (c is TextBox textBox)
-                    {
-                        textBox.Clear();
-                    }
-                }
-            }
-        }
-
-        private void Form_kisisorgulama_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnonceki_Click(object sender, EventArgs e)
         {
             int aileSiraNo = int.Parse(txtasn.Text);
@@ -183,7 +166,7 @@ namespace stajdenemeApp
 
         private void btntemizle_Click(object sender, EventArgs e)
         {
-            ClearTextboxs(this);
+            FormHelper.Clear_Textboxs(this);
             dataGridViewolay.DataSource = null;
         }
     }

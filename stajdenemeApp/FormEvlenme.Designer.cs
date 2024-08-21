@@ -113,9 +113,11 @@
             // txtTC1
             // 
             txtTC1.Location = new Point(19, 51);
+            txtTC1.MaxLength = 11;
             txtTC1.Name = "txtTC1";
             txtTC1.Size = new Size(150, 23);
             txtTC1.TabIndex = 33;
+            txtTC1.KeyPress += txtTC_KeyPress;
             // 
             // label1
             // 
@@ -293,9 +295,11 @@
             // txtTC2
             // 
             txtTC2.Location = new Point(19, 51);
+            txtTC2.MaxLength = 11;
             txtTC2.Name = "txtTC2";
             txtTC2.Size = new Size(150, 23);
             txtTC2.TabIndex = 33;
+            txtTC2.KeyPress += txtTC_KeyPress;
             // 
             // label5
             // 
@@ -487,6 +491,7 @@
             txtyil.Name = "txtyil";
             txtyil.Size = new Size(41, 23);
             txtyil.TabIndex = 61;
+            txtyil.KeyPress += txtTC_KeyPress;
             // 
             // txtay
             // 
@@ -495,6 +500,7 @@
             txtay.Name = "txtay";
             txtay.Size = new Size(22, 23);
             txtay.TabIndex = 60;
+            txtay.KeyPress += txtTC_KeyPress;
             // 
             // txtdakika
             // 
@@ -503,6 +509,7 @@
             txtdakika.Name = "txtdakika";
             txtdakika.Size = new Size(22, 23);
             txtdakika.TabIndex = 59;
+            txtdakika.KeyPress += txtTC_KeyPress;
             // 
             // txtsaat
             // 
@@ -511,6 +518,7 @@
             txtsaat.Name = "txtsaat";
             txtsaat.Size = new Size(22, 23);
             txtsaat.TabIndex = 58;
+            txtsaat.KeyPress += txtTC_KeyPress;
             // 
             // label17
             // 
@@ -537,6 +545,7 @@
             txtgun.Name = "txtgun";
             txtgun.Size = new Size(25, 23);
             txtgun.TabIndex = 56;
+            txtgun.KeyPress += txtTC_KeyPress;
             // 
             // comboBoxcilt
             // 

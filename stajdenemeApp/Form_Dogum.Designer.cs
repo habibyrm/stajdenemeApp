@@ -93,6 +93,7 @@
             // txtannetc
             // 
             txtannetc.Location = new Point(19, 40);
+            txtannetc.MaxLength = 11;
             txtannetc.Name = "txtannetc";
             txtannetc.Size = new Size(100, 23);
             txtannetc.TabIndex = 1;
@@ -140,6 +141,7 @@
             // txtbabatc
             // 
             txtbabatc.Location = new Point(6, 38);
+            txtbabatc.MaxLength = 11;
             txtbabatc.Name = "txtbabatc";
             txtbabatc.Size = new Size(100, 23);
             txtbabatc.TabIndex = 16;

@@ -210,9 +210,11 @@
             // txtTC
             // 
             txtTC.Location = new Point(19, 51);
+            txtTC.MaxLength = 11;
             txtTC.Name = "txtTC";
             txtTC.Size = new Size(150, 23);
             txtTC.TabIndex = 33;
+            txtTC.KeyPress += txtTC_KeyPress;
             // 
             // btnolum
             // 
@@ -285,6 +287,7 @@
             txtyil.Name = "txtyil";
             txtyil.Size = new Size(41, 23);
             txtyil.TabIndex = 59;
+            txtyil.KeyPress += txtTC_KeyPress;
             // 
             // txtay
             // 
@@ -293,6 +296,7 @@
             txtay.Name = "txtay";
             txtay.Size = new Size(22, 23);
             txtay.TabIndex = 58;
+            txtay.KeyPress += txtTC_KeyPress;
             // 
             // txtdakika
             // 
@@ -301,6 +305,7 @@
             txtdakika.Name = "txtdakika";
             txtdakika.Size = new Size(22, 23);
             txtdakika.TabIndex = 57;
+            txtdakika.KeyPress += txtTC_KeyPress;
             // 
             // txtsaat
             // 
@@ -309,6 +314,7 @@
             txtsaat.Name = "txtsaat";
             txtsaat.Size = new Size(22, 23);
             txtsaat.TabIndex = 56;
+            txtsaat.KeyPress += txtTC_KeyPress;
             // 
             // label5
             // 
@@ -336,6 +342,7 @@
             txtgun.Name = "txtgun";
             txtgun.Size = new Size(25, 23);
             txtgun.TabIndex = 54;
+            txtgun.KeyPress += txtTC_KeyPress;
             // 
             // FrmOlum
             // 

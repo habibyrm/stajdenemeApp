@@ -77,9 +77,11 @@
             // txtTC
             // 
             txtTC.Location = new Point(22, 24);
+            txtTC.MaxLength = 11;
             txtTC.Name = "txtTC";
             txtTC.Size = new Size(150, 23);
             txtTC.TabIndex = 1;
+            txtTC.KeyPress += txtTC_KeyPress;
             // 
             // label1
             // 

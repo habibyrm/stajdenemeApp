@@ -23,7 +23,14 @@ namespace stajdenemeApp
         KisiBilgileri kisi1;
         KisiBilgileri kisi2;
         DateTime zaman;
-
+        public void txtTC_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Sadece rakamlara ve kontrol tuşlarına (örneğin Backspace) izin ver
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
         private void buttonValidate_Click(object sender, EventArgs e)
         {
             int day, month, year, hour, minute;
@@ -217,11 +224,6 @@ namespace stajdenemeApp
             {
                 MessageBox.Show($"Bir hata oluştu! {ex}");
             }
-        }
-
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-
         }
     }
 }
